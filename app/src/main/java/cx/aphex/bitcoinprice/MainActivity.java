@@ -1,19 +1,13 @@
 package cx.aphex.bitcoinprice;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import fj.data.List;
+import cx.aphex.bitcoinprice.helpers.JsonHelper;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.exceptions.Exceptions;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,32 +28,14 @@ public class MainActivity extends AppCompatActivity {
         MainApplication.getApiService().getCurrencyCodes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(this::jsonStringToJsonObject)
+                .map(JsonHelper::stringToJsonObject)
                 .map(JSONObject::names)
-                .map(this::jsonArrayToFjList)
+                .map(JsonHelper::arrayToFjList)
                 .subscribe(codes -> {
                     Log.d(TAG, codes.toString());
 
                 });
     }
 
-    private JSONObject jsonStringToJsonObject(String s) {
-        try {
-            return new JSONObject(s);
-        } catch (JSONException e) {
-            throw Exceptions.propagate(e);
-        }
-    }
 
-    private List<String> jsonArrayToFjList(@NonNull JSONArray jsonArray) {
-        ArrayList<String> arrayList = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                arrayList.add(jsonArray.get(i).toString());
-            } catch (JSONException e) {
-                throw Exceptions.propagate(e);
-            }
-        }
-        return List.list(arrayList);
-    }
 }
