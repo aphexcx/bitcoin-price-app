@@ -42,7 +42,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         vh.price.setText(String.valueOf(currencyPrice.getAsk()));
 
         //TODO:
-//        vh.currencyCode.setText(currencyPrice.getCode());
+        vh.currencyCode.setText(currencyPrice.getCode());
 //        vh.icon.setImageURI(Uri.parse(currencyPrice.getIcon()));
     }
 

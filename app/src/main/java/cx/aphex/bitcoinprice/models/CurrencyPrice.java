@@ -12,6 +12,7 @@ public class CurrencyPrice {
     private String timestamp;
     private double volumeBtc;
     private double volumePercent;
+    private String code;
 
     /**
      * @return The ask
@@ -95,5 +96,13 @@ public class CurrencyPrice {
      */
     public void setVolumePercent(double volumePercent) {
         this.volumePercent = volumePercent;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

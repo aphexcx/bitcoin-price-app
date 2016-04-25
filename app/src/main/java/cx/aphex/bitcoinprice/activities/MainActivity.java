@@ -12,14 +12,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
-import org.json.JSONObject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cx.aphex.bitcoinprice.MainApplication;
 import cx.aphex.bitcoinprice.R;
 import cx.aphex.bitcoinprice.adapters.CurrencyAdapter;
-import cx.aphex.bitcoinprice.helpers.JsonHelper;
 import cx.aphex.bitcoinprice.models.CurrencyPrice;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import rx.Observable;
@@ -44,24 +40,6 @@ public class MainActivity extends BaseActivity {
         setupLoadingAnimation();
 
         setupUserRecyclerView();
-
-        MainApplication.getApiService().getCurrencyPrice("AFN")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(r -> {
-                    Log.d(TAG, r.toString());
-                });
-
-        MainApplication.getApiService().getCurrencyCodes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(JsonHelper::stringToJsonObject)
-                .map(JSONObject::names)
-                .map(JsonHelper::arrayToFjList)
-                .subscribe(codes -> {
-                    Log.d(TAG, codes.toString());
-
-                });
 
         //load currency cards
         //circular reveal and show them one by one

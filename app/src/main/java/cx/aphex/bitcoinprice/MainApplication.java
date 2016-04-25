@@ -15,7 +15,7 @@ public class MainApplication extends Application {
 
     public static BitcoinAverageInterface getApiService() {
         if (sApiService == null) {
-            sApiService = ApiService.create();
+            sApiService = new ApiService();
         }
         return sApiService;
     }
