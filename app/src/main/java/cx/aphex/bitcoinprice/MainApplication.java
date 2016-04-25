@@ -2,6 +2,8 @@ package cx.aphex.bitcoinprice;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import cx.aphex.bitcoinprice.interfaces.BitcoinAverageInterface;
 import cx.aphex.bitcoinprice.services.ApiService;
 
@@ -18,4 +20,9 @@ public class MainApplication extends Application {
         return sApiService;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Fresco.initialize(this);
+    }
 }
